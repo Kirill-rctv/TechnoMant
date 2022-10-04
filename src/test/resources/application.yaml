@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: sa
+    password:
+  flyway:
+    enabled: true
+    locations: classpath:/testDb/migration/
+
+mybatis:
+  type-handlers-package: ru.kochnev.technomant.SpringBoot.typeHandlers
+
+logging:
+  level:
+    org.springframework.transaction.interceptor: TRACE

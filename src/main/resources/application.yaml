@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: sa
+
+mybatis:
+  type-handlers-package: ru.kochnev.technomant.SpringBoot.typeHandlers
+
+logging:
+  level:
+    org.springframework.transaction.interceptor: TRACE
