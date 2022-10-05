@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.kochnev.technomant.SpringBoot.SpringBoot.ApplicationTest;
 import ru.kochnev.technomant.SpringBoot.models.Article;
+import ru.kochnev.technomant.SpringBoot.models.Page;
 import ru.kochnev.technomant.SpringBoot.models.User;
 import ru.kochnev.technomant.SpringBoot.modelsDTO.ArticleDTO;
 import ru.kochnev.technomant.SpringBoot.repositories.ArticleRepository;
@@ -153,7 +154,12 @@ class ArticleControllerTest extends ApplicationTest {
 
         List<ArticleDTO> paginatedList = List.of(articleDtoTest);
 
-        String expectedContent = objectMapper.writeValueAsString(paginatedList);
+        Page page = new Page()
+                .setCurrentPage(paginatedList)
+                .setNumOfNextPage(2);
+
+
+        String expectedContent = objectMapper.writeValueAsString(page);
 
         this.mockMvc.perform(get("/article/")
                         .with(httpBasic("writer", "admin"))

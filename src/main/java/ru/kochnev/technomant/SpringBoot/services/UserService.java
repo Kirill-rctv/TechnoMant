@@ -42,7 +42,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void save(User user) {
+    public User save(User user) {
         if (findByName(user.getName()) == null) {
             userRepository.insert(user
                     .setId(UUID.randomUUID())
@@ -53,6 +53,7 @@ public class UserService implements UserDetailsService {
                     .setRoleId(roleRepository.get("ROLE_WRITER").getId())
                     .setUserId(user.getId()));
         }
+        return user;
     }
 
     public UserDTO getById(String id) throws MyException {

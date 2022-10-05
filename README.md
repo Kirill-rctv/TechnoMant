@@ -22,10 +22,10 @@ docker compose up
 
 # Example #
 
-**Get user:**
+**Get admin user:**
 ```
 curl --request GET 'http://localhost:8080/user/3dccddc9-a5dd-459d-b476-cd7e42cba8eb' \
---header 'Authorization: Basic YWRtaW46YWRtaW4=' \
+--header 'Authorization: Basic YWRtaW46YWRtaW4=' 
 ```
 
 **Register new user:**
@@ -54,7 +54,7 @@ curl --request POST 'http://localhost:8080/article/' \
 **Get article:**
 ```
 curl --request GET 'http://localhost:8080/user/<article-id>' \
---header 'Authorization: Basic YWRtaW46YWRtaW4=' \
+--header 'Authorization: Basic YWRtaW46YWRtaW4=' 
 ```
 
 **Update article:**
@@ -72,13 +72,13 @@ curl --request PUT 'http://localhost:8080/article/<article-id>' \
 **Delete article:**
 ```
 curl --request DELETE 'http://localhost:8080/user/<article-id>' \
---header 'Authorization: Basic YWRtaW46YWRtaW4=' \
+--header 'Authorization: Basic YWRtaW46YWRtaW4=' 
 ```
 
 **Get page:**
 ```
 curl --request GET 'http://localhost:8080/article/?page=1&size=1' \
---header 'Authorization: Basic YWRtaW46YWRtaW4=' \
+--header 'Authorization: Basic YWRtaW46YWRtaW4=' 
 ```
 
 **Get statistic:**

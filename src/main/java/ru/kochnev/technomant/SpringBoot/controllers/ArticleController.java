@@ -1,17 +1,17 @@
 package ru.kochnev.technomant.SpringBoot.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.kochnev.technomant.SpringBoot.models.Article;
-import ru.kochnev.technomant.SpringBoot.models.MyException;
-import ru.kochnev.technomant.SpringBoot.models.User;
+import ru.kochnev.technomant.SpringBoot.models.*;
 import ru.kochnev.technomant.SpringBoot.modelsDTO.ArticleDTO;
 import ru.kochnev.technomant.SpringBoot.services.ArticleService;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.UUID;
 
 @Validated
 @RestController
@@ -22,10 +22,16 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @PostMapping
-    public void save(@RequestBody @Valid Article article) {
+    public ResponseEntity<Pojo> save(@RequestBody @Valid Article article) {
         User authorizedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         article.setAuthorId(authorizedUser.getId());
-        articleService.save(article);
+        Pojo response;
+        try {
+            UUID uuid = articleService.save(article).getId();
+            return new ResponseEntity<>(new Pojo(true, uuid, "OK"), HttpStatus.OK);
+        } catch (Error e) {
+            return new ResponseEntity<>(new Pojo(false, null, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{id}")
@@ -34,7 +40,7 @@ public class ArticleController {
     }
 
     @GetMapping(params = { "page", "size" })
-    public List<ArticleDTO> getPaginated(@RequestParam("page") int page, @RequestParam("size") int size) throws MyException {
+    public Page getPaginated(@RequestParam("page") int page, @RequestParam("size") int size) throws MyException {
         return articleService.getPaginated(page, size);
     }
 
