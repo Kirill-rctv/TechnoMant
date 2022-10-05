@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 import ru.kochnev.technomant.SpringBoot.annotations.NameLengthValid;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -27,7 +28,7 @@ public class Article {
     @NotBlank(message = "content of article cannot be empty ")
     private String content;
     @NonNull
-    @NotBlank(message = "publishing date of article cannot be empty ")
+    @NotNull(message = "publishing date of article cannot be empty ")
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mmX")
     private OffsetDateTime datePublishing;
 }
